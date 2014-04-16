@@ -135,6 +135,14 @@ def sns(account, region):
     return render_template('sns.html', subscriptions=subscriptions)
 
 
+@elastatus.route('/<account>/<region>/redshift')
+def redshift(account, region):
+    c = connect(account, region, 'redshift')
+    clusters = c.describe_clusters()
+    clusters = clusters['DescribeClustersResponse']['DescribeClustersResult']['Clusters']
+    return render_template('redshift.html', clusters=clusters)
+
+
 @elastatus.route('/<account>/<region>/sqs')
 def sqs(account, region):
     c = connect(account, region, 'sqs')

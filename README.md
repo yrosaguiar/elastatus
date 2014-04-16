@@ -77,7 +77,7 @@ To run elastatus locally for testing you can do it in virtualenv
 
         aws: 
             compute: ['ec2', 'ebs', 'snapshots', 'elb', 'autoscale']
-            database: ['rds','dynamodb', 'elasticache']
+            database: ['rds','dynamodb', 'elasticache', 'redshift']
             deployments: ['cloudformation']
             services: ['route53', 'sqs', 'sns']
 

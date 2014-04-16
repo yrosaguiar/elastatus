@@ -14,6 +14,7 @@ import boto.sqs
 import boto.sns
 import boto.cloudformation
 import boto.route53
+import boto.redshift
 
 
 def connect(account, region, service=None):
@@ -81,6 +82,12 @@ def connect(account, region, service=None):
 
     elif service == 'cloudwatch':
         conn = [x for x in boto.ec2.cloudwatch.regions() if x.name == region][0]
+        conn = conn.connect(aws_access_key_id=aws_access_key_id,
+                            aws_secret_access_key=aws_secret_access_key)
+        return conn
+
+    elif service == 'redshift':
+        conn = [x for x in boto.redshift.regions() if x.name == region][0]
         conn = conn.connect(aws_access_key_id=aws_access_key_id,
                             aws_secret_access_key=aws_secret_access_key)
         return conn
