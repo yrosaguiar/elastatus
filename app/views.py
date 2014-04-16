@@ -23,10 +23,19 @@ def ec2(account, region):
 
 
 @elastatus.route('/<account>/<region>/ebs')
+@validate_account_and_region
 def ebs(account, region):
     c = connect(account, region, 'ebs')
     volumes = c.get_all_volumes()
     return render_template('ebs.html', volumes=volumes)
+
+
+@elastatus.route('/<account>/<region>/snapshots')
+@validate_account_and_region
+def snapshots(account, region):
+    c = connect(account, region, 'ec2')
+    snapshots = c.get_all_snapshots(owner='self')
+    return render_template('snapshots.html', region=region, snapshots=snapshots)
 
 
 @elastatus.route('/<account>/<region>/autoscale')
