@@ -28,7 +28,7 @@
             <td>{{ instance.instance_type }}</td>
             <td>{{ instance.placement }}</td>
             <td>{% for group in instance.groups %}
-                <a href="/{{current_account}}/{{current_region}}/sg/{{ group.id }}">{{ group.id }}</a><br>
+                <a href="/{{current_account}}/{{current_region}}/sg/{{ group.id }}">{{ group.name }}</a><br>
             {% endfor %}</td>
             <td>{{ instance.state }}</td>
         </tr>
