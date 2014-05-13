@@ -27,3 +27,8 @@ route53:
     account: 'account1'
     domain: 'mydomain'
     zone_id: 'myzoneid'
+
+sgaudit:
+    known_ips: ['1.1.1.1/0']
+    excluded_groups: ['ignore_this_group']
+    excluded_ips: ['0.0.0.0/0']

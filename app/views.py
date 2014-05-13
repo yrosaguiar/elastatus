@@ -2,7 +2,7 @@ from flask import *
 import os
 from decorators import validate_account_and_region
 from aws import connect, route53
-
+from sgaudit import get_reports
 
 elastatus  = Blueprint('elastatus', __name__)
 
@@ -154,4 +154,13 @@ def sqs(account, region):
         attributes['url'] = url
         queues.append(attributes)
     return render_template('sqs.html', queues=queues)
+
+
+@elastatus.route('/<account>/<region>/sgaudit')
+def sgaudit(account, region):
+    c = connect(account, region, 'ec2')
+    report, empty_groups = get_reports(c)
+    return render_template('sgaudit.html', report=report)
+
+
 

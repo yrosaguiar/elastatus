@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid" style="margin-top: 10px">
+    <h2><img src="/static/img/aws/sg.png"> Amazon Security Group Audit Report</h2>
+    <font color=red><b>The tables below list security groups which have allow rules for IP addresses not included in the known_ips configuration. These should either be added to the known_ips configuration or the rules should be purged.</font></b>
+    {% for group in report %}
+        <h3>{{ group }}</h3>
+        <table cellpadding="1" cellspacing="0" border="0" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th width="33%">Allow</th>
+                <th width="33%">From Port</th>
+                <th width="33%">To Port</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rule in report[group] %}
+            <tr>
+                <td>{{ rule[0] }}</td>
+                <td>{{ rule[1] }}</td>
+                <td>{{ rule[2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% endfor %}      
+    </div>
+{% endblock %}
