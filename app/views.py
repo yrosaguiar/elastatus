@@ -174,7 +174,6 @@ def sgaudit_monitor():
         for region in current_app.config['CONFIG']['regions']:
             c = connect(account, region, 'ec2')
             report, empty_groups = get_reports(c)
-            print report
             if report:
                 monitor[account][region] = True
             else:
