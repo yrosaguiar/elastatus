@@ -4,8 +4,6 @@ from flask import current_app
 
 def get_reports(c):
     ip_whitelist = [x.cidr_ip for x in IPWhitelist.query.all()]
-
-    #ip_whitelist = current_app.config['CONFIG']['sgaudit']['ip_whitelist']
     excluded_groups = current_app.config['CONFIG']['sgaudit']['excluded_groups']
     excluded_ips = current_app.config['CONFIG']['sgaudit']['excluded_ips']
     groups = [x for x in c.get_all_security_groups() if not x.name in excluded_groups]
