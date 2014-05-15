@@ -11,10 +11,8 @@
             <th>Protocol</th>
         </tr>
     </thead>
-    <tbody>
-        {% for i in sg %}
+        {% for rule in sg[0].rules %}
         <tr>
-            {% for rule in i.rules %}
                 {% for grant in rule.grants %}
                 <td>{{ rule.from_port }}</td>
                 <td>{{ rule.to_port }}</td>
@@ -25,7 +23,6 @@
                 {% endif %}
                 <td>{{ rule.ip_protocol }}</td>
             </tr>
-                {% endfor %}
                 {% endfor %}
         {% endfor %}
     </tbody>

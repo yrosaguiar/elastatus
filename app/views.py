@@ -2,7 +2,7 @@ from flask import *
 import os
 from decorators import validate_account_and_region
 from aws import connect, route53
-from sgaudit import get_reports, add_description
+from sgaudit import get_reports, add_description, check_for_empty_group
 from app.models import IPWhitelist
 
 elastatus  = Blueprint('elastatus', __name__)
