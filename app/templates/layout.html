@@ -49,7 +49,11 @@
                   {% endif %} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                 {% for account in config['CONFIG']['accounts'] %}
+                  {% if current_service == 'sg' %}
+                  <li><a href="/{{ current_account }}/ec2">{{ account.capitalize() }}</a></li>
+                  {% else %}
                   <li><a href="{{ request.path.replace(current_account, account) }}">{{ account.capitalize() }}</a></li>
+                  {% endif %}
                 {% endfor %}
                 </ul>
               </li>
@@ -58,7 +62,11 @@
                   {{ request.path.split('/')[2] }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                 {% for region in config['CONFIG']['regions'] %}
+                  {% if current_service == 'sg' %}
+                  <li><a href="/{{ current_account }}/ec2">{{ region }}</a></li>
+                  {% else %}
                   <li><a href="{{ request.path.replace(current_region, region) }}">{{ region }}</a></li>
+                  {% endif %}
                 {% endfor %}
                 </ul>
               </li>
