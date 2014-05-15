@@ -38,6 +38,7 @@ def add_description(sg_obj):
     """This feels wrong but I need to add metadata from DB whitelist to
     the boto object so I can access it from the template in a simple way. 
     Sorry"""
+    excluded_ips = current_app.config['CONFIG']['sgaudit']['excluded_ips']
     for i in sg_obj:
         for rule in i.rules:
             for grant in rule.grants:
@@ -46,7 +47,10 @@ def add_description(sg_obj):
                     if record:
                         grant.description = record.description
                     else:
-                        grant.description = "Not in whitelist. Unknown"
+                        if grant.cidr_ip in excluded_ips:
+                            grant.description = "Explicitly excluded from whitelist in config"
+                        else:
+                            grant.description = "Not in whitelist. Unknown"
                 else:
                     continue
     return sg_obj
