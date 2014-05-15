@@ -1,4 +1,6 @@
 from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.httpauth import HTTPBasicAuth
 import os
 import yaml
 
@@ -7,7 +9,22 @@ app.secret_key = 'SUPERSECRET' # you should change this to something equally ran
 app.config['CONFIG_FILE'] = os.path.abspath('app/config.yaml')
 configStr = open(app.config['CONFIG_FILE'], 'r')
 app.config['CONFIG'] = yaml.load(configStr)
+sqlite_db = os.path.abspath('db/elastatus.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////%s' % sqlite_db
+
+
+db = SQLAlchemy(app)
+auth = HTTPBasicAuth()
+
+from app.models import *
+
+@app.before_first_request
+def create_db():
+    if not os.path.exists(sqlite_db):
+        db.create_all()
 
 
 from views import elastatus as elastatus
+from admin import admin as admin
 app.register_blueprint(elastatus)
+app.register_blueprint(admin, url_prefix='/admin')

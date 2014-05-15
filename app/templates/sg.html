@@ -21,7 +21,7 @@
                 {% if grant.cidr_ip == None %}
                 <td><a href="/{{ current_account }}/{{ region }}/sg/{{ grant.group_id }}">{{ grant.group_id }}</a></td>
                 {% else %}
-                <td>{{ grant }}</td>
+                <td>{{ grant }} ({{ grant.description }})</td>
                 {% endif %}
                 <td>{{ rule.ip_protocol }}</td>
             </tr>

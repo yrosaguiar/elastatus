@@ -2,7 +2,8 @@ from flask import *
 import os
 from decorators import validate_account_and_region
 from aws import connect, route53
-from sgaudit import get_reports
+from sgaudit import get_reports, add_description
+from app.models import IPWhitelist
 
 elastatus  = Blueprint('elastatus', __name__)
 
@@ -59,6 +60,7 @@ def elb(account, region):
 def sg(account, region, id):
     c = connect(account, region,'ec2')
     sg = c.get_all_security_groups(filters={'group-id': id})
+    sg = add_description(sg)
     return render_template('sg.html', region=region, sg=sg)
 
 
@@ -161,6 +163,4 @@ def sgaudit(account, region):
     c = connect(account, region, 'ec2')
     report, empty_groups = get_reports(c)
     return render_template('sgaudit.html', report=report)
-
-
 

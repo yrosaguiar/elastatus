@@ -1,5 +1,5 @@
-{% extends "layout.html" %}
+{% extends "admin.html" %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 10px">
-<i>to do</i>
+<i>{{ request.path.split('/')[1] }}</i>
 {% endblock %}

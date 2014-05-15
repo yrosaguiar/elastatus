@@ -2711,7 +2711,7 @@
 			 * sZeroRecords - assuming that is given.
 			 */
 			if ( !oLanguage.sEmptyTable && oLanguage.sZeroRecords &&
-				oDefaults.sEmptyTable === "No AWS data found for requested service" )
+				oDefaults.sEmptyTable === "No data found for requested service" )
 			{
 				_fnMap( oLanguage, oLanguage, 'sZeroRecords', 'sEmptyTable' );
 			}
@@ -9266,7 +9266,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No AWS data found for requested service",
+			"sEmptyTable": "No data found for requested service",
 		
 		
 			/**

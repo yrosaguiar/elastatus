@@ -108,7 +108,15 @@
                 </ul>
               </li>
 
-            </ul>          
+              {% if request.path.split('/')[1] == 'admin' %}
+                <li class="active">
+              {% else %}
+                <li>
+              {% endif %}
+              <a href="/admin"><i class="icon-wrench icon-white"></i> Admin</a>
+            </li>
+
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>

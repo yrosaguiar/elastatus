@@ -1,3 +1,7 @@
 PyYAML==3.10
 Flask==0.10.1
 boto==2.25.0
+Flask-HTTPAuth==2.2.1
+Flask-SQLAlchemy==1.0
+ipaddr==2.1.10
+
