@@ -40,9 +40,13 @@ def whitelist_add():
         is_ip = False
 
     if is_ip:
-        new = IPWhitelist(request.form['cidr_ip'], request.form['description'])
-        db.session.add(new)
-        db.session.commit()
+        check = IPWhitelist.query.filter_by(cidr_ip=request.form['cidr_ip']).first()
+        if check:
+            flash('IP Address already exists: %s' % request.form['cidr_ip'])
+        else:
+            new = IPWhitelist(request.form['cidr_ip'], request.form['description'])
+            db.session.add(new)
+            db.session.commit()
     else:
         flash('Invalid IP address: %s' % request.form['cidr_ip'])
     return redirect(url_for('admin.whitelist'))
