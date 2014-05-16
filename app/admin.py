@@ -64,7 +64,8 @@ def whitelist_add():
                     sendmail("IP Whitelist Updated", 
                          "New IP added to Whitelist: %s, %s" % (request.form['cidr_ip'], request.form['description'])
                          )
-                    flash('Email sent to %s' % current_app.config['CONFIG']['admin']['email_to'])
+                    recipients = ', '.join(current_app.config['CONFIG']['admin']['email_to'])
+                    flash('Email sent to %s' % recipients)
                 except Exception, e:
                     flash('Email Error: %s' % e)
     else:
