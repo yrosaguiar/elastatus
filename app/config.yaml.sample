@@ -38,6 +38,6 @@ admin:
     username: 'admin'
     password: 'XXXXXXXXXXX'
     enable_email: False
-    email_to: 'test@test.com'
+    email_to: ['test@test.com']
     email_from: 'elastatus@test.com'
 
