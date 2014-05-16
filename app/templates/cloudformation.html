@@ -8,6 +8,7 @@
             <th>Name</th>
             <th>Created</th>
             <th>Status</th>
+            <th>Status Timestamp</th>
             <th>Resources</th>
             <th>Template</th>
         </tr>
@@ -18,6 +19,7 @@
             <td>{{ s.stack_name}}</td>
             <td>{{ s.creation_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
             <td>{{ s.stack_status }}</a></td>
+            <td>{{ s.describe_events()[0].timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>            
             <td>{% for r in s.describe_resources() %}
                 {{ r }}<br>
                 {% endfor %}
