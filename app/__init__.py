@@ -2,8 +2,10 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.httpauth import HTTPBasicAuth
 from flask.ext.mail import Mail
+from flask.ext.cache import Cache
 import os
 import yaml
+
 
 app = Flask(__name__)
 app.secret_key = 'SUPERSECRET' # you should change this to something equally random
@@ -13,10 +15,17 @@ app.config['CONFIG'] = yaml.load(configStr)
 sqlite_db = os.path.abspath('db/elastatus.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////%s' % sqlite_db
 
-
 db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
 mail = Mail(app)
+cache = Cache()
+cache.init_app(app, config={'CACHE_TYPE': 'simple', 
+                            'CACHE_DEFAULT_TIMEOUT':app.config['CONFIG']['sgaudit']['cache_timeout']
+                            })
+
+if app.config['CONFIG']['jobs']['enabled']:
+    from jobs import *
+
 
 from app.models import *
 
@@ -27,6 +36,8 @@ def create_db():
 
 
 from views import elastatus as elastatus
+from api import api as api
 from admin import admin as admin
 app.register_blueprint(elastatus)
+app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(admin, url_prefix='/admin')

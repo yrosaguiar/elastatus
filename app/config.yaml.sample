@@ -29,9 +29,9 @@ route53:
     zone_id: 'myzoneid'
 
 sgaudit:
-    known_ips: ['1.1.1.1/0']
     excluded_groups: ['ignore_this_group']
     excluded_ips: ['0.0.0.0/0']
+    cache_time: 600
 
 
 admin:
@@ -40,4 +40,7 @@ admin:
     enable_email: False
     email_to: ['test@test.com']
     email_from: 'elastatus@test.com'
+
+jobs:
+    enabled: False
 

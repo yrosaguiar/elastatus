@@ -166,17 +166,3 @@ def sgaudit(account, region):
 
 
 
-@elastatus.route('/api/sgauditmonitor')
-def sgaudit_monitor():
-    monitor = dict()
-    for account in current_app.config['CONFIG']['accounts']:
-        monitor[account] = dict()
-        for region in current_app.config['CONFIG']['regions']:
-            c = connect(account, region, 'ec2')
-            report, empty_groups = get_reports(c)
-            if report:
-                monitor[account][region] = True
-            else:
-                monitor[account][region] = False
-    return jsonify(sgaudit=monitor)
-
