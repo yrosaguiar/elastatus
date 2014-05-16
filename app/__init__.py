@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.httpauth import HTTPBasicAuth
+from flask.ext.mail import Mail
 import os
 import yaml
 
@@ -15,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////%s' % sqlite_db
 
 db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
+mail = Mail(app)
 
 from app.models import *
 

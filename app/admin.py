@@ -1,11 +1,23 @@
 from flask import *
 from app import db
 from app import auth
+from app import mail
+from flask.ext.mail import Message
 from app.models import IPWhitelist
 import ipaddr
 
 
 admin  = Blueprint('admin', __name__)
+
+
+def sendmail(subject, content):
+    msg = Message(sender=current_app.config['CONFIG']['admin']['email_from'],
+                  recipients=current_app.config['CONFIG']['admin']['email_to'],
+                  subject=subject,
+                  body=content
+                  )
+    mail.send(msg)
+
 
 @auth.get_password
 def get_password(username):
@@ -47,6 +59,14 @@ def whitelist_add():
             new = IPWhitelist(request.form['cidr_ip'], request.form['description'])
             db.session.add(new)
             db.session.commit()
+            if current_app.config['CONFIG']['admin']['enable_email']:
+                try:
+                    sendmail("IP Whitelist Updated", 
+                         "New IP added to Whitelist: %s, %s" % (request.form['cidr_ip'], request.form['description'])
+                         )
+                    flash('Email sent to %s' % current_app.config['CONFIG']['admin']['email_to'])
+                except Exception, e:
+                    flash('Email Error: %s' % e)
     else:
         flash('Invalid IP address: %s' % request.form['cidr_ip'])
     return redirect(url_for('admin.whitelist'))
