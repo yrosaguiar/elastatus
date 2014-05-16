@@ -2,7 +2,6 @@ from flask import *
 from app import db
 from app import auth
 from app import mail
-from app import sched
 from flask.ext.mail import Message
 from app.models import IPWhitelist
 import ipaddr
