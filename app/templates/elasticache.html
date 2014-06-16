@@ -20,11 +20,22 @@
         <tr>
             <td>{{ cluster['CacheClusterId'] }}</td>
             <td>{{ cluster['Engine'] }}</td>
-            <td>{{ cluster['ConfigurationEndpoint']['Address'] }}</td>
-            <td>{{ cluster['ConfigurationEndpoint']['Port'] }}</td>
+            {% if cluster['Engine'] == 'memcached' %}
+                <td>{{ cluster['ConfigurationEndpoint']['Address'] }}</td>
+                <td>{{ cluster['ConfigurationEndpoint']['Port'] }}</td>
+            {% elif cluster['Engine'] == 'redis' %}
+                {% for nodes in cluster['CacheNodes'] %}
+                    <td>{{ nodes['Endpoint']['Address'] }}</td>
+                    <td>{{ nodes['Endpoint']['Port'] }}</td>
+                {% endfor %}
+            {% endif %}
             <td>{{ cluster['NumCacheNodes'] }}</td>
             <td>{{ cluster['PreferredAvailabilityZone'] }}</td>
+            {% if cluster['SecurityGroups'] == None %}
+            <td></td>
+            {% else %}
             <td><a href="/sg/{{region}}/{{cluster['SecurityGroups'][0]['SecurityGroupId']}}">{{cluster['SecurityGroups'][0]['SecurityGroupId']}}</a></td>
+            {% endif %}
             <td>{{ cluster['CacheClusterStatus'] }}</td>
         </tr>
         {% endfor %}
