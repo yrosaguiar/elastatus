@@ -47,5 +47,5 @@ def sgaudit_account_monitor(account=None, region=None):
     report, empty_groups = get_reports(c)
     security_alert = False
     if report:
-        security_alert = True
+        security_alert = report
     return jsonify(account={region: security_alert})
