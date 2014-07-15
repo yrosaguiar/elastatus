@@ -48,4 +48,4 @@ def sgaudit_account_monitor(account=None, region=None):
     security_alert = False
     if report:
         security_alert = report
-    return jsonify(account={region: security_alert})
+    return jsonify(audit={account: {region: security_alert}})
