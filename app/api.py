@@ -36,3 +36,16 @@ def sgaudit_monitor():
             else:
                 monitor[account][region] = False
     return jsonify(sgaudit=monitor)
+
+
+@api.route('/sgaudit/<account>/<region>')
+def sgaudit_account_monitor(account=None, region=None):
+    if account == None or region == None:
+        return jsonify(error='account and region required')
+    monitor = dict()
+    c = connect(account, region, 'ec2')
+    report, empty_groups = get_reports(c)
+    security_alert = False
+    if report:
+        security_alert = True
+    return jsonify(account={region: security_alert})
