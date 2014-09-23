@@ -12,6 +12,7 @@
             <th>Private IP</th>
             <th>ID</th>
             <th>Type</th>
+            <th>Price Model</th>
             <th>Zone</th>
             <th>Groups</th>
             <th>State</th>
@@ -26,6 +27,10 @@
             <td>{{ instance.private_ip_address }}</td>
             <td>{{ instance.id }}</td>
             <td>{{ instance.instance_type }}</td>
+            <td>{% if instance.spot_instance_request_id == None %}on-demand
+                {% else %}spot
+                {% endif %}
+            </td>
             <td>{{ instance.placement }}</td>
             <td>{% for group in instance.groups %}
                 <a href="/{{current_account}}/{{current_region}}/sg/{{ group.id }}">{{ group.name }}</a><br>
