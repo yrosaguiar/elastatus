@@ -31,7 +31,7 @@ route53:
 sgaudit:
     excluded_groups: ['ignore_this_group']
     excluded_ips: ['0.0.0.0/0']
-    cache_time: 600
+    cache_timeout: 600
 
 
 admin:
