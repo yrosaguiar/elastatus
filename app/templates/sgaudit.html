@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 10px">
-    <h2><img src="/static/img/aws/sg.png"> Amazon Security Group Audit Report</h2>
+    <h2><img src="{{ url_for('static', filename='img/aws/sg.png') }}"> Amazon Security Group Audit Report</h2>
     <b>The tables below list security groups which have allow rules for IP addresses not included in the IP Whitelist located in the Admin section. These IP address should be added to the whitelist with a description if valid or removed through the Amazon console in the relevant account.</b>
     {% for group in report %}
         <h3>{{ group }}</h3>

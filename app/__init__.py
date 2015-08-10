@@ -6,7 +6,6 @@ from flask.ext.cache import Cache
 import os
 import yaml
 
-
 app = Flask(__name__)
 app.secret_key = 'SUPERSECRET' # you should change this to something equally random
 app.config['CONFIG_FILE'] = os.path.abspath('app/config.yaml')
@@ -15,11 +14,14 @@ app.config['CONFIG'] = yaml.load(configStr)
 sqlite_db = os.path.abspath('db/elastatus.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////%s' % sqlite_db
 
+# Allow arbitrary python code in Jinja templates
+app.jinja_options['extensions'].append('jinja2.ext.do')
+
 db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
 mail = Mail(app)
 cache = Cache()
-cache.init_app(app, config={'CACHE_TYPE': 'simple', 
+cache.init_app(app, config={'CACHE_TYPE': 'simple',
                             'CACHE_DEFAULT_TIMEOUT':app.config['CONFIG']['sgaudit']['cache_timeout']
                             })
 

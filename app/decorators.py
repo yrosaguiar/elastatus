@@ -5,10 +5,10 @@ def validate_account_and_region(f):
     @wraps(f)
     def check_account_and_region_function(*args, **kwargs):
         try:
-            account = request.path.split('/')[1]
+            account = request.view_args.get('account')
             if current_app.config['CONFIG']['accounts'][account]:
                 pass
-            region = request.path.split('/')[2]
+            region = request.view_args.get('region')
             if region in current_app.config['CONFIG']['regions']:
                 pass
         except:

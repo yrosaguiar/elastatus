@@ -1,7 +1,7 @@
 {% extends "admin.html" %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 10px">
-    <h2><img src="/static/img/admin.png"> Elastatus Admin</h2>
+    <h2><img src="{{ url_for('static', filename='img/admin.png') }}"> Elastatus Admin</h2>
     <h4>Add to IP Whitelist</h4>
     <form action="whitelist/add" method="POST">
       <fieldset>
