@@ -23,6 +23,13 @@ def ec2(account, region):
     instances = c.get_only_instances()
     return render_template('ec2.html', region=region, instances=instances)
 
+@elastatus.route('/<account>/<region>/ami')
+@validate_account_and_region
+def ami(account, region):
+    c = connect(account,region, 'ec2')
+    amis = c.get_all_images()
+    return render_temlpate('ami.html', 'region=region', amis=amis)
+
 
 @elastatus.route('/<account>/<region>/ebs')
 @validate_account_and_region

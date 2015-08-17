@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid" style="margin-top: 10px">
+    <h2><img src="{{ url_for('static', filename='img/aws/ec2.png') }}"> Elastic Cloud Compute</h2>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="info">
+    <thead>
+        <tr>
+	{% for ami in amis %}
+            <th>Name<th>
+	    <th>AMI ID<th>
+	    <th>Status</th>
+	    <th>Date<th>
+            
+	{% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for ami in amis %}
+        <tr>
+            <td>{{ami.tags['Name']}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
