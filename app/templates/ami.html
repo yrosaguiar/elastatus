@@ -10,6 +10,7 @@
 	    <th>AMI ID</th>
 	    <th>Status</th>
 	    <th>Date</th>
+            <th>OS</th>
             <th>Root Device</th>
             <th>Virt Type</th>
             <th>Tags</th>
@@ -22,6 +23,7 @@
             <td>{{ami.id}}</td>
             <td>{{ami.state}}</td>
             <td>{{ami.creationDate}}</td>
+            <td>{{ami.platform}}</td>
             <td>{{ami.root_device_type}}</td>
             <td>{{ami.virtualization_type}}</td>
             <td>{% for tag in ami.tags %} {{tag}}={{ami.tags[tag]}}<br> {% endfor %}
