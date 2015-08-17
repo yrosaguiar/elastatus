@@ -28,9 +28,6 @@ def ec2(account, region):
 def ami(account, region):
     c = connect(account,region, 'ec2')
     amis = c.get_all_images(owners = ['self'])
-    for ami in amis:
-        print dir(ami)
-        print type(ami)
     ami_list = {ami: c.get_image(ami.id) for ami in amis}
     return render_template('ami.html', region=region, amis=ami_list)
 
