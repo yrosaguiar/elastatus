@@ -1,24 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 10px">
-    <h2><img src="{{ url_for('static', filename='img/aws/ec2.png') }}"> Elastic Cloud Compute</h2>
+    <h2><img src="{{ url_for('static', filename='img/aws/ec2.png') }}"> Elastic Cloud Compute - Images</h2>
 
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="info">
     <thead>
         <tr>
-	{% for ami in amis %}
-            <th>Name<th>
-	    <th>AMI ID<th>
+            <th>Name</th>
+	    <th>AMI ID</th>
 	    <th>Status</th>
-	    <th>Date<th>
-            
-	{% endfor %}
+	    <th>Date</th>
+            <th>Root Device</th>
+            <th>Virt Type</th>
+            <th>Tags</th>
         </tr>
     </thead>
     <tbody>
         {% for ami in amis %}
         <tr>
             <td>{{ami.tags['Name']}}</td>
+            <td>{{ami.id}}</td>
+            <td>{{ami.state}}</td>
+            <td>{{ami.creationDate}}</td>
+            <td>{{ami.root_device_type}}</td>
+            <td>{{ami.virtualization_type}}</td>
+            <td>{% for tag in ami.tags %} {{tag}}={{ami.tags[tag]}}<br> {% endfor %}
         </tr>
         {% endfor %}
     </tbody>
