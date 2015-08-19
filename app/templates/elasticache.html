@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 10px">
-    <h2><img src="/static/img/aws/elasticache.png"> Elasticache</h2>
+    <h2><img src="{{ url_for('static', filename='img/aws/elasticache.png') }}"> Elasticache</h2>
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="info">
     <thead>
         <tr>
@@ -34,12 +34,12 @@
             {% if cluster['SecurityGroups'] == None %}
             <td></td>
             {% else %}
-            <td><a href="/sg/{{region}}/{{cluster['SecurityGroups'][0]['SecurityGroupId']}}">{{cluster['SecurityGroups'][0]['SecurityGroupId']}}</a></td>
+            <td><a href="{{ url_for('.sg', account=current_account, region=region, id=cluster['SecurityGroups'][0]['SecurityGroupId']) }}">{{cluster['SecurityGroups'][0]['SecurityGroupId']}}</a></td>
             {% endif %}
             <td>{{ cluster['CacheClusterStatus'] }}</td>
         </tr>
         {% endfor %}
     </tbody>
-    </table>      
+    </table>
 </div>
 {% endblock %}

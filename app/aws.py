@@ -93,7 +93,7 @@ def connect(account, region, service=None):
         return conn
 
 
-def route53():
+def r53():
     account = current_app.config['CONFIG']['route53']['account']
     aws_access_key_id = current_app.config['CONFIG']['accounts'][account]['aws_access_key_id']
     aws_secret_access_key  = current_app.config['CONFIG']['accounts'][account]['aws_secret_access_key']    
