@@ -42,6 +42,12 @@ def connect(account, region, service=None):
                             aws_secret_access_key=aws_secret_access_key)
         return conn
 
+    elif service == 'ami':
+        conn = [x for x in boto.ec2.image.regions() if x.name == region][0]
+        conn = conn.connect(aws_access_key_id=aws_access_key_id,
+                            aws_secret_access_key=aws_secret_access_key)
+        return conn
+
 
     elif service == 'rds':
         conn = [x for x in boto.rds.regions() if x.name == region][0]
