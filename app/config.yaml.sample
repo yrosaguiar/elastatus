@@ -12,7 +12,7 @@ accounts:
 regions: ['eu-west-1','us-east-1']
 
 aws: 
-    compute: ['ec2', 'ebs', 'snapshots', elb', 'autoscale']
+    compute: ['ec2', 'ebs', 'snapshots', 'ami', 'elb', 'autoscale']
     database: ['rds','dynamodb', 'elasticache', 'redshift']
     deployments: ['cloudformation', 'sgaudit']
     services: ['route53', 'sqs', 'sns']
