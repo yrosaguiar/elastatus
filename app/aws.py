@@ -17,11 +17,18 @@ import boto.route53
 import boto.redshift
 
 
-def connect(account, region, service=None):
-    aws_access_key_id = current_app.config['CONFIG']['accounts'][account]['aws_access_key_id']
-    aws_secret_access_key  = current_app.config['CONFIG']['accounts'][account]['aws_secret_access_key']
+def get_keys_from_env(account):
+    if environ.get(account.upper() + '_' 'AWS_ACCESS_KEY') is None or environ.get(account.upper() + '_' 'AWS_SECRET_KEY') is None:    
+        aws_access_key_id = current_app.config['CONFIG']['accounts'][account]['aws_access_key_id']
+        aws_secret_access_key  = current_app.config['CONFIG']['accounts'][account]['aws_secret_access_key']    
+    else:
+        aws_access_key_id = environ.get(account.upper() + '_' 'AWS_ACCESS_KEY')
+        aws_secret_access_key  = environ.get(account.upper() + '_' 'AWS_SECRET_KEY')
+    return aws_access_key_id, aws_secret_access_key
 
 
+def connect(account, region, service=None):   
+    aws_access_key_id, aws_secret_access_key =  get_keys_from_env(account)
     if service == 'ec2' or service == 'ebs' or service is None:
         conn = [x for x in boto.ec2.regions() if x.name == region][0]
         conn = conn.connect(aws_access_key_id=aws_access_key_id,
